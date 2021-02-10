@@ -1,19 +1,21 @@
 # Based on
 # https://stackoverflow.com/questions/10258229/is-there-any-direct-function-to-perform-1d-data-interpolation-table-lookup
+
+class Array
+  def -(x : T) : self
+    self + (-x)
+  end
+
+  def +(x : T) : self
+    self.map { |element| element + x }
+  end
+end
+
 module Interp1d
   VERSION = "0.1.0"
 
   # Quick additions to the Array class in order to be able to
   # add and subtract from scalar values
-  class Array
-    def -(x : T) : self
-      self + (-x)
-    end
-
-    def +(x : T) : self
-      self.map { |element| element + x }
-    end
-  end
 
   def interpolate(x0 : Int32, y0 : Float64, x1 : Int32, y1 : Float64, x2 : Int32) : Float64
     y2 = y0.to_f + ((y1 - y0).to_f*(x2 - x0).to_f/(x1 - x0).to_f)
